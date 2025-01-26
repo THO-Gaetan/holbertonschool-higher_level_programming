@@ -4,7 +4,6 @@
 
 def say_my_name(first_name, last_name=""):
     """Function that print first_name and last_name, only if both are string"""
-    err_msg = " or "
     # Check first if first_name or last_name are a string or not
     if not isinstance(first_name, str):
         raise TypeError("first_name must be a string")
