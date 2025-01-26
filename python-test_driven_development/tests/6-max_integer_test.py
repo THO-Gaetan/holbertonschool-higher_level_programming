@@ -3,3 +3,9 @@
 """
 import unittest
 max_integer = __import__('6-max_integer').max_integer
+
+class TestMaxInteger(unittest.TestCase):
+    def test_empty_list(self):
+        """Test an empty list."""
+        empty = []
+        self.assertEqual(max_integer(empty), None)
