@@ -7,9 +7,9 @@ def matrix_divided(matrix, div):
       rounded at 2 number max"""
     # if the matrix is not a list of list then raise a TypeError
     err_msg = "matrix must be a matrix (list of lists) of integers/floats"
-    if not isinstance(matrix, list):
-        if not all(isinstance(row, list) for row in matrix):
-            raise TypeError(err_msg)
+    if not isinstance(matrix, list) or not all(isinstance(row, list)
+                                               for row in matrix):
+        raise TypeError(err_msg)
     if not all(isinstance(el, (int, float)) for row in matrix for el in row):
         raise TypeError(err_msg)
     # if all the row in the matrix doesn't have the same size raise a TypeError

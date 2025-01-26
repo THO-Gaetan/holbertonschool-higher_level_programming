@@ -37,3 +37,5 @@ TypeError: matrix must be a matrix (list of lists) of integers/floats
 Traceback (most recent call last):
     ...
 TypeError: matrix_divided() missing 1 required positional argument: 'div'
+>>> matrix_divided([[1.1, -2.2], [3.3, -4.4]], 2)
+[[0.55, -1.1], [1.65, -2.2]]
