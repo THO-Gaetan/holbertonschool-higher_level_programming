@@ -8,15 +8,15 @@ My name is Bob
 >>> say_my_name(12, "White")
 Traceback (most recent call last):
     ...
-TypeError: first_name must be a string or last_name must be a string
+TypeError: first_name must be a string
 >>> say_my_name("Bob", 12)
 Traceback (most recent call last):
     ...
-TypeError: first_name must be a string or last_name must be a string
+TypeError: last_name must be a string
 >>> say_my_name(12, 13)
 Traceback (most recent call last):
     ...
-TypeError: first_name must be a string or last_name must be a string
+TypeError: first_name must be a string
 >>> say_my_name("", "Doe")
 My name is  Doe
 >>> say_my_name("", "")
