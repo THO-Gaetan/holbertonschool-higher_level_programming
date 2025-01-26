@@ -1,23 +1,27 @@
 >>> text_indentation = __import__('5-text_indentation').text_indentation
+
 >>> text_indentation("Hello. How are you? I'm fine: thank you.")
 Hello.
-
+<BLANKLINE>
 How are you?
-
+<BLANKLINE>
 I'm fine:
-
+<BLANKLINE>
 thank you.
+
 >>> text_indentation("No special characters")
 No special characters
->>> text_indentation("   Spaces.   At the beginning   ")
-   Spaces.
 
-   At the beginning   
+>>> text_indentation("   Spaces.   At the beginning   ")
+Spaces.
+<BLANKLINE>
+At the beginning
+
 >>> text_indentation("Dots at the end...")
 Dots at the end.
-
+<BLANKLINE>
 .
-
+<BLANKLINE>
 .
 
 >>> text_indentation("""Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
@@ -30,36 +34,38 @@ Dots at the end.
 ... cuique tribuens atque hanc, quam dico. Utinam quidem dicerent alium alio \
 ... beatiorem! Iam ruinas videres""")
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
+<BLANKLINE>
 Quonam modo?
-
+<BLANKLINE>
 Utrum igitur tibi litteram videor an totas paginas commovere?
-
+<BLANKLINE>
 Non autem hoc:
-
+<BLANKLINE>
 igitur ne illud quidem.
-
+<BLANKLINE>
 Fortasse id optimum, sed ubi illud:
-
+<BLANKLINE>
 Plus semper voluptatis?
-
+<BLANKLINE>
 Teneo, inquit, finem illi videri nihil dolere.
-
+<BLANKLINE>
 Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum rationi oboediens.
-
+<BLANKLINE>
 Si id dicis, vicimus.
-
+<BLANKLINE>
 Inde sermone vario sex illa a Dipylo stadia confecimus.
-
+<BLANKLINE>
 Sin aliud quid voles, postea.
-
+<BLANKLINE>
 Quae animi affectio suum cuique tribuens atque hanc, quam dico.
-
+<BLANKLINE>
 Utinam quidem dicerent alium alio beatiorem! Iam ruinas videres
+
 >>> text_indentation(123)
 Traceback (most recent call last):
     ...
 TypeError: text must be a string
+
 >>> text_indentation()
 Traceback (most recent call last):
     ...
