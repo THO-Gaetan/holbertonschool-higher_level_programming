@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Module containing print_square function"""
+
+
 def print_square(size):
     """Function to print a square"""
     # Checking if size is not an integer
