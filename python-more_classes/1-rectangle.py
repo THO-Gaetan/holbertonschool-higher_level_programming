@@ -29,7 +29,7 @@ class Rectangle:
             raise ValueError("width must be >= 0")
         self.__width = value
     
-    @width.setter
+    @height.setter
     def height(self, value):
         """set the height size as value"""
         if not isinstance(value, int):
