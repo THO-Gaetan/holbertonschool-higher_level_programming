@@ -57,10 +57,5 @@ class Rectangle:
         return "\n".join(rectangle)
 
     def __repr__(self):
-        """
-        Return a string representation of the rectangle for recreation.
-
-        Returns:
-            str: A string representation that can be used to recreate the rectangle.
-        """
+        """create a new rectangle"""
         return "Rectangle({},{})".format(self.__width, self.__height)
