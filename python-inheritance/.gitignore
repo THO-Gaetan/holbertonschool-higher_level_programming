@@ -1,0 +1,7 @@
+# Fichiers Python à exclure
+setup.py
+
+# Fichiers système
+.DS_Store
+__pycache__/
+*.pyc
