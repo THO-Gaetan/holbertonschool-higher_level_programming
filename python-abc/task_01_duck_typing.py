@@ -1,8 +1,15 @@
+"""
+This module defines an abstract Shape class and its concrete implementations.
+It provides functionality to calculate area and perimeter of different shapes.
+"""
+
 from abc import ABC, abstractmethod
 import math
 
 
 class Shape(ABC):
+    """An abstract base class representing a geometric shape."""
+
     @abstractmethod
     def area(self):
         pass
