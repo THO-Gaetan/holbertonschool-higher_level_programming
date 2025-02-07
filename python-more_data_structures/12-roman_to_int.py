@@ -1,22 +1,21 @@
-#!/usr/bin/python3
 def roman_to_int(roman_string):
-    if not roman_string:
+    if not isinstance(roman_string, str) or roman_string is None:
         return 0
-        result = 0
-    for char in roman_string:
-        if char == "I":
-            result += 1
-        elif char == "V":
-            result += 5
-        elif char == "X":
-            result += 10
-        elif char == "L":
-            result += 50
-        elif char == "C":
-            result += 100
-        elif char == "D":
-            result += 500
-        elif char == "M":
-            result += 1000
+
+    roman_values = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50,
+        'C': 100, 'D': 500, 'M': 1000
+    }
+
+    result = 0
+    prev_value = 0
+
+    for char in reversed(roman_string):
+        current_value = roman_values.get(char, 0)
+        if current_value >= prev_value:
+            result += current_value
+        else:
+            result -= current_value
+        prev_value = current_value
+
     return result
-    
