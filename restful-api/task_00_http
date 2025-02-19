@@ -1,0 +1,53 @@
+1. Difference between HTTP and HTTPS :
+
+To start it out, HTTP and HTTPS are pretty similar, HTTP mean Hyper Transfer Protocol and HTTPS mean HTTP secure.
+What could be the main difference between both is that the HTTP transmits data in plain text, when HTTPS uses SSL or TLS to encrypte and secure the communication
+Their URL is also a bit different, as for HTTP we go with "http://" and for HTTPS we go for "https://".
+As a matter of fact, the HTTP is faster than HTTPS as the later need additional processing to encrypte.
+Last but not least they don't use the same PORT, HTTP will use port 80 by default, as HTTPS will use port 443.
+
+2. Understanding of HTTP structure :
+
+Here are the following HTTP Request that would be made :
+
+- Start Line: Method, URL, HTTP version
+
+- Headers: Metadata about the request
+
+- Empty Line
+
+- Body (Optional): Request data
+
+And here how an HTTP Response will be done :
+
+- Status Line: HTTP version, status code, status text
+
+- Headers: Metadata about the response
+
+- Empty Line
+
+- Body (Optional): Response content
+
+3. HTTP methods and status Codes :
+
+Here are some common HTTP Methods : 
+
+- GET: Retrieves data. Use Case: Fetching a web page or data from an API.
+
+- POST: Sends data to the server for processing. Use Case: Submitting a form or creating a new resource.
+
+- PUT: Updates an existing resource. Use Case: Updating a user's profile information.
+
+- DELETE: Deletes a resource. Use Case: Removing a blog post or deleting a user account.
+
+and to sum it up, here are a few common HTTP status codes :
+
+- 200 OK: Request was successful. Scenario: Successfully retrieving a web page.
+
+- 404 Not Found: The requested resource was not found on the server. Scenario: Trying to access a broken link.
+
+- 500 Internal Server Error: A generic error occurred on the server. Scenario: The server encountered an unexpected condition.
+
+- 301 Moved Permanently: The requested resource has been permanently moved to a new URL. Scenario: A website has been redesigned, and old URLs redirect to new ones.
+
+- 403 Forbidden: The server understood the request, but is refusing to fulfill it. The client does not have permission to access the resource. Scenario: Trying to access a restricted area of a website without proper authentication.
