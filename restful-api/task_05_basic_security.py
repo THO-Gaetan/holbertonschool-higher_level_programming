@@ -45,14 +45,19 @@ def basic_protected():
 @app.route('/login', methods=['POST'])
 def login():
     """login to the endpoint"""
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    user = users.get(username)
-    if user and check_password_hash(user['password'], password):
-        access_token = create_access_token(
-            identity={'username': username, 'role': user['role']}
-        )
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    if not username or not password:
+        return jsonify({"error": "Missing username or password"}), 400
+    
+    if username in users and check_password_hash(users[username]['password'], password):
+        access_token = create_access_token(identity={"username": username, "role": users[username]['role']})
+
+    if username in users and check_password_hash(users[username]
+                                                 ['password'], password):
+        access_token = create_access_token(identity={"username": username,
+                                                     "role": users[username]
+                                                     ['role']})
         return jsonify(access_token=access_token)
 
     return jsonify({"error": "Invalid username or password"}), 401
