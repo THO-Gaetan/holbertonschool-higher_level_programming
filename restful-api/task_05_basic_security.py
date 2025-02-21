@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-"""Basic security with flask using jwt"""
+"""Basic security implementation with Flask using JWT and Basic Auth."""
+
 from flask import Flask, jsonify, request
-from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import (JWTManager, create_access_token,
-                                jwt_required, get_jwt_identity)
+from flask_httpauth import HTTPBasicAuth
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity
+)
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
@@ -110,5 +112,5 @@ def handle_needs_fresh_token_error(err):
     return jsonify({"error": "Fresh token required"}), 401
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
