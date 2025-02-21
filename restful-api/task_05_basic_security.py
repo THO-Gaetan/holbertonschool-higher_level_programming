@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Basic security with flask using jwt"""
 from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
