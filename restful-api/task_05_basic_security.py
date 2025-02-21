@@ -51,9 +51,12 @@ def login():
     password = request.json.get('password', None)
     if not username or not password:
         return jsonify({"error": "Missing username or password"}), 400
-    
-    if username in users and check_password_hash(users[username]['password'], password):
-        access_token = create_access_token(identity={"username": username, "role": users[username]['role']})
+
+    if username in users and check_password_hash(users[username]
+                                                 ['password'], password):
+        access_token = create_access_token(identity={"username": username,
+                                                     "role": users[username]
+                                                     ['role']})
 
     if username in users and check_password_hash(users[username]
                                                  ['password'], password):
