@@ -6,17 +6,12 @@ import csv
 
 def fetch_and_print_posts():
     response = requests.get('https://jsonplaceholder.typicode.com/posts')
+    print(f"Status Code: {response.status_code}")
 
     if response.status_code == 200:
-        print(f"Status code: {response.status_code}")
         posts = response.json()
         for post in posts:
-            print(f"{post['id']}")
             print(f"{post['title']}")
-            print(f"{post['body']}")
-            print("--------------------")
-    else:
-        print(f"Status code: {response.status_code}")
 
 
 def fetch_and_save_posts():
@@ -24,13 +19,12 @@ def fetch_and_save_posts():
 
     if response.status_code == 200:
         posts = response.json()
+        structured_posts = [{'id': post['id'], 'title': post['title'], 'body': post['body']} for post in posts]
 
-        header = posts[0].keys()
-        with open('posts.csv', 'w') as file:
-            writer = csv.writer(file)
-            writer.writerows(header)
+        with open('posts.csv', 'w', newline='', encoding='utf-8') as file:
+            fieldnames = ['id', 'title', 'body']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
 
-            for post in posts:
-                writer.writerow(post.values())
-    else:
-        print(f"Status code: {response.status_code}")
+            for post in structured_posts:
+                writer.writerow(post)
