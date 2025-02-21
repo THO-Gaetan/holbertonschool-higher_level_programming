@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Basic security implementation with Flask using JWT and Basic Auth."""
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import (
@@ -40,31 +40,26 @@ def verify_password(username, password):
 @app.route('/basic-protected')
 @auth.login_required
 def basic_protected():
-    """protect the endpoint using authentification"""
-    return "Basic Auth: Access Granted"
+    """protect the endpoint using authentication"""
+    return make_response('Unauthorized Access', 401, {'WWW-Authenticate':
+                                                      'Basic realm="Authentication Required"'})
 
+@auth.error_handler
+def unauthorized():
+    return make_response('Unauthorized Access', 401, {'WWW-Authenticate': 'Basic realm="Authentication Required"'})
 
 @app.route('/login', methods=['POST'])
 def login():
     """login to the endpoint"""
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
-    if not username or not password:
-        return jsonify({"error": "Missing username or password"}), 400
-
-    if username in users and check_password_hash(users[username]
-                                                 ['password'], password):
-        access_token = create_access_token(identity={"username": username,
-                                                     "role": users[username]
-                                                     ['role']})
-
-    if username in users and check_password_hash(users[username]
-                                                 ['password'], password):
-        access_token = create_access_token(identity={"username": username,
-                                                     "role": users[username]
-                                                     ['role']})
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    user = users.get(username)
+    if user and check_password_hash(user['password'], password):
+        access_token = create_access_token(
+            identity={'username': username, 'role': user['role']}
+        )
         return jsonify(access_token=access_token)
-
     return jsonify({"error": "Invalid credentials"}), 401
 
 
