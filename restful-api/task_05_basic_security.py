@@ -41,7 +41,7 @@ def verify_password(username, password):
 @auth.login_required
 def basic_protected():
     """protect the endpoint using authentification"""
-    return jsonify({"message": "Basic Auth: Access Granted"})
+    return "Basic Auth: Access Granted"
 
 
 @app.route('/login', methods=['POST'])
@@ -65,14 +65,14 @@ def login():
                                                      ['role']})
         return jsonify(access_token=access_token)
 
-    return jsonify({"error": "Invalid username or password"}), 401
+    return jsonify({"error": "Invalid credentials"}), 401
 
 
 @app.route('/jwt-protected')
 @jwt_required()
 def jwt_protected():
     """protecting endpoint with a jwt authentification"""
-    return jsonify({"message": "JWT Auth: Access Granted"})
+    return "JWT Auth: Access Granted"
 
 
 @app.route('/admin-only')
@@ -82,7 +82,7 @@ def admin_only():
     current_user = get_jwt_identity()
     if current_user['role'] != 'admin':
         return jsonify({"error": "Admin access required"}), 403
-    return jsonify({"message": "Admin Access: Granted"})
+    return "Admin Access: Granted"
 
 
 @jwt.unauthorized_loader
