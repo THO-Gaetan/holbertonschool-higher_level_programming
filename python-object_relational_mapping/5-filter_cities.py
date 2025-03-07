@@ -7,7 +7,8 @@ import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    # Get MySQL connection parameters and state name from command-line arguments
+    # Get MySQL connection parameters and state name 
+    # from command-line arguments
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
