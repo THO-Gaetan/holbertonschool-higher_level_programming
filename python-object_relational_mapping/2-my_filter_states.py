@@ -28,10 +28,11 @@ if __name__ == "__main__":
         cursor = db.cursor()
 
         # Create the SQL query using format to include user input
-        query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+        quer = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(
+            state_name)
 
         # Execute the query
-        cursor.execute(query)
+        cursor.execute(quer)
 
         # Fetch all the rows that match the query
         states = cursor.fetchall()
