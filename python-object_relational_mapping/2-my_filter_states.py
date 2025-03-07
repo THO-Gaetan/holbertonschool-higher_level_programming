@@ -27,11 +27,12 @@ if __name__ == "__main__":
         # Create a cursor object to execute SQL queries
         cursor = db.cursor()
 
-        # Create the SQL query using parameterized query to include user input
-        query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+        # Create the SQL query using format to include user input
+        query = "SELECT * FROM states WHERE name = '{}' \
+            ORDER BY id ASC".format(state_name)
 
         # Execute the query
-        cursor.execute(query, (state_name,))
+        cursor.execute(query)
 
         # Fetch all the rows that match the query
         states = cursor.fetchall()
@@ -39,12 +40,7 @@ if __name__ == "__main__":
         # Display the results
         for state in states:
             print(state)
-
-    except MySQLdb.Error as e:
-        print("MySQL Error {}: {}".format(e.args[0], e.args[1]))
-        sys.exit(1)
-
-    finally:
+            
         # Close the cursor and database connection
         if 'cursor' in locals():
             cursor.close()
