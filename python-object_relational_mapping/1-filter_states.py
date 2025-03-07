@@ -10,7 +10,8 @@ import sys
 if __name__ == "__main__":
     # Check if correct number of arguments is provided
     if len(sys.argv) != 4:
-        print("Usage: {} <mysql username> <mysql password> <database name>".format(sys.argv[0]))
+        print("Usage: {} <mysql username> <mysql password>\
+               <database name>".format(sys.argv[0]))
         sys.exit(1)
 
     # Get MySQL connection parameters from command line arguments
@@ -31,8 +32,10 @@ if __name__ == "__main__":
         # Create a cursor object to execute SQL queries
         cursor = db.cursor()
 
-        # Execute the SQL query to select states starting with 'N', ordered by id
-        cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+        # Execute the SQL query to select states starting with 'N',
+        # ordered by id
+        cursor.execute("SELECT * FROM states WHERE \
+                       name LIKE 'N%' ORDER BY id ASC")
 
         # Fetch all the rows
         states = cursor.fetchall()
