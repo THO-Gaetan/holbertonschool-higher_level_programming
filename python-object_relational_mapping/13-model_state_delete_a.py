@@ -14,8 +14,7 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    deleted_states = session.query(State).filter(State.\
-                                                 name.like('%a%')).all()
+    deleted_states = session.query(State).filter(State.name.like('%a%')).all()
     for state in deleted_states:
         session.delete(state)
 
