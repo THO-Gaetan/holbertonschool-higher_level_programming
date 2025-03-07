@@ -15,7 +15,7 @@ if __name__ == "__main__":
     session = Session()
 
     # Query the State object with id = 2
-    update_state = session.query(State).filter(id == 2).first()
+    update_state = session.query(State).filter(State.id == 2).first()
 
     if update_state:
         # Update the name to "New Mexico"
