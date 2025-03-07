@@ -1,4 +1,4 @@
-#!/home/gaetan/holbertonschool-higher_level_programming/python-object_relational_mapping/mysql_venv/bin/python3
+#!/home/gaetan/holbertonschool-higher_level_programming/python-object_relational_mapping/mysql_venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
