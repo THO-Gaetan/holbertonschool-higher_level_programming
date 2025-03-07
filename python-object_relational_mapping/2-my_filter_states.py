@@ -41,7 +41,5 @@ if __name__ == "__main__":
         print(state)
 
     # Close the cursor and database connection
-    if 'cursor' in locals():
-        cursor.close()
-    if 'db' in locals():
-        db.close()
+    cursor.close()
+    db.close()
