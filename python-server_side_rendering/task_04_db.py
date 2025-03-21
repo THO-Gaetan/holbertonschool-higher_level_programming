@@ -67,21 +67,26 @@ def load_sql_data():
         # Execute query to fetch all products
         cursor.execute('''SELECT id, name, category, price FROM products''')
         rows = cursor.fetchall()
-        conn.close()
         
         # Convert rows to dictionary format
         for row in rows:
-            products.append({
-                'id': row['id'],
-                'name': row['name'],
-                'category': row['category'],
-                'price': row['price']
-            })
-        return products
-    
+            product = {
+                'id': row[0],
+                'name': row[1],
+                'category': row[2],
+                'price': float(row[3])
+            }
+            products.append(product)
+            
     except sqlite3.Error as e:
         app.logger.error(f"Database error: {str(e)}")
         return []
+        
+    finally:
+        if conn:
+            conn.close()
+            
+    return products
 
 @app.route('/products')
 def display_products():
