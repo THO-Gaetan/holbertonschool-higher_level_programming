@@ -23,7 +23,9 @@
     </head>
     <body>
         <h1>Product List</h1>
-        {% if products %}
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% elif products %}
             <table>
                 <thead>
                     <tr>
