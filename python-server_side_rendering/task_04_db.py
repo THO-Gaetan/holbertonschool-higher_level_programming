@@ -7,6 +7,7 @@ import os
 app = Flask(__name__)
 
 def create_database():
+    """Create and populate the SQLite database if it doesn't exist"""
     conn = sqlite3.connect('products.db')
     cursor = conn.cursor()
     cursor.execute('''
@@ -17,12 +18,20 @@ def create_database():
             price REAL NOT NULL
         )
     ''')
-    cursor.execute('''
-        INSERT INTO Products (id, name, category, price)
-        VALUES
-        (1, 'Laptop', 'Electronics', 799.99),
-        (2, 'Coffee Mug', 'Home Goods', 15.99)
-    ''')
+    
+    # Check if data already exists
+    cursor.execute('SELECT COUNT(*) FROM Products')
+    count = cursor.fetchone()[0]
+    
+    if count == 0:
+        # Insert sample data
+        cursor.execute('''
+            INSERT INTO Products (id, name, category, price)
+            VALUES
+            (1, 'Laptop', 'Electronics', 799.99),
+            (2, 'Coffee Mug', 'Home Goods', 15.99)
+        ''')
+    
     conn.commit()
     conn.close()
 
@@ -127,46 +136,7 @@ def display_products():
         return render_template('product_display.html',
                              error="An error occurred while processing your request")
 
-def init_db():
-    """Initialize the SQLite database with sample data"""
-    conn = None
-    try:
-        conn = sqlite3.connect('products.db')
-        cursor = conn.cursor()
-        
-        # Create products table
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS products (
-                id INTEGER PRIMARY KEY,
-                name TEXT NOT NULL,
-                category TEXT NOT NULL,
-                price REAL NOT NULL
-            )
-        ''')
-        
-        # Insert sample data
-        sample_data = [
-            (1, 'Laptop', 'Electronics', 999.99),
-            (2, 'Headphones', 'Electronics', 99.99),
-            (3, 'Coffee Maker', 'Appliances', 49.99)
-        ]
-        
-        cursor.executemany('''
-            INSERT OR REPLACE INTO products (id, name, category, price)
-            VALUES (?, ?, ?, ?)
-        ''', sample_data)
-        
-        conn.commit()
-        
-    except sqlite3.Error as e:
-        app.logger.error(f"Database initialization error: {str(e)}")
-        if conn:
-            conn.rollback()
-    finally:
-        if conn:
-            conn.close()
-
 if __name__ == '__main__':
     # Initialize database before running the app
-    init_db()
+    create_database()
     app.run(debug=True, port=5000)
