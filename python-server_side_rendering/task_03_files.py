@@ -33,6 +33,7 @@ def display_products():
     product_id = request.args.get('id', None)
 
     products = []
+    message_error = None
     
     if source == 'json':
         products = load_json_data()
