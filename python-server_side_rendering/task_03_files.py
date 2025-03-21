@@ -53,7 +53,7 @@ def display_products():
         except ValueError:
             message_error = "Invalid id format"
     
-    return render_template('product_display.html', products=products)
+    return render_template('product_display.html', products=products, error=message_error)
 
 
 def load_json_data():
