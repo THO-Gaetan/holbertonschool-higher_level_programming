@@ -29,18 +29,19 @@ def items():
 
 @app.route('/products')
 def display_products():
-    source = request.args.get('source', '').lower()  
-    product_id = request.args.get('id', None)  
-    
-    if source not in ['json', 'csv']:
-        return render_template('product_display.html', error="Wrong source. Please use 'json' or 'csv'.")
+    source = request.args.get('source') 
+    product_id = request.args.get('id', None)
+
+    products = []
     
     if source == 'json':
         products = load_json_data()
-    else:
+    elif source == 'csv':
         products = load_csv_data()
+    else:
+        message_error = "source not found"
     
-    if product_id:
+    if product_id and not message_error:
         try:
             product_id = int(product_id)
             products = [p for p in products if p['id'] == product_id]
