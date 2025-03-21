@@ -94,7 +94,7 @@ def display_products():
     product_id = request.args.get('id')
     
     if source not in ('json', 'csv', 'sql'):
-        return render_template('product_display.html', error="Source not found")
+        return render_template('product_display.html', error="Wrong source")
     if source == 'json':
         products = load_json_data()
     elif source == 'csv':
