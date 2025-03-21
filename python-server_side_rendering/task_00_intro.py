@@ -2,16 +2,20 @@ def generate_invitations(template, attendees):
     """Create personalized files from a template and a list"""
 
     if not isinstance(template, str):
-        return ("Error: The template is not a string")
+        print("Error: The template is not a string")
+        return
 
     if not isinstance(attendees, list) or not all(isinstance(attendee, dict) for attendee in attendees):
-        return ("Error: Attendees is not a list")
+        print("Error: Attendees is not a list")
+        return
 
     if not template.strip():
-        return ("Error: The template can't be empty")
+        print("Error: The template can't be empty")
+        return
 
     if not attendees:
-        return ("Error: The attendees list can't be empty")
+        print("Error: The attendees list can't be empty")
+        return
 
     for index, attendee in enumerate(attendees, 1):
         processed_template = template
