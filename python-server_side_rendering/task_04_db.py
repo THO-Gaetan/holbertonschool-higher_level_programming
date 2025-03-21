@@ -90,51 +90,30 @@ def load_sql_data():
 
 @app.route('/products')
 def display_products():
-    """Display products from multiple data sources"""
-    source = request.args.get('source')
+    source = request.args.get('source') 
     product_id = request.args.get('id')
     
-    if not source:
-        return render_template('product_display.html', 
-                             error="Source parameter is required (json, csv, or sql)")
-    
     if source not in ('json', 'csv', 'sql'):
-        return render_template('product_display.html', 
-                             error="Invalid source. Use 'json', 'csv', or 'sql'")
+        return render_template('product_display.html', error="Source not found")
+    if source == 'json':
+        products = load_json_data()
+    elif source == 'csv':
+        products = load_csv_data()
+    elif source == 'sql':
+        products = load_sql_data()
     
-    try:
-        # Load data based on source
-        if source == 'json':
-            products = load_json_data()
-        elif source == 'csv':
-            products = load_csv_data()
-        elif source == 'sql':
-            products = load_sql_data()
-        
-        if not products:
-            return render_template('product_display.html',
-                                error=f"No products found in {source} source")
-        
-        # Filter by product ID if provided
-        if product_id:
-            try:
-                product_id = int(product_id)
-                products_filtered = [p for p in products if p['id'] == product_id]
-                if products_filtered:
-                    products = products_filtered
-                else:
-                    return render_template('product_display.html',
-                                        error="Product not found")
-            except ValueError:
-                return render_template('product_display.html',
-                                    error="Invalid ID format. Must be numeric")
-        
-        return render_template('product_display.html', products=products)
-        
-    except Exception as e:
-        app.logger.error(f"Error processing request: {str(e)}")
-        return render_template('product_display.html',
-                             error="An error occurred while processing your request")
+    if product_id:
+        try:
+            product_id = int(product_id)
+            products_filtered = [p for p in products if p['id'] == product_id]
+            if products_filtered:
+                products = products_filtered
+            else: 
+                return render_template('product_display.html', error="Product not found.")
+        except ValueError:
+            return render_template('product_display.html', error="Invalid ID format. Must be numeric.")
+    
+    return render_template('product_display.html', products=products)
 
 if __name__ == '__main__':
     # Initialize database before running the app
