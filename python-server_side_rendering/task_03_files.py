@@ -32,12 +32,12 @@ def display_products():
     source = request.args.get('source') 
     product_id = request.args.get('id')
     
+    if source not in ('json', 'csv'):
+        return render_template('product_display.html', error="Source not found")
     if source == 'json':
         products = load_json_data()
     elif source == 'csv':
         products = load_csv_data()
-    else:
-        return render_template('product_display.html', error="Source not found")
     
     if product_id:
         try:
@@ -70,7 +70,6 @@ def load_csv_data():
                 row['id'] = int(row['id'])
                 row['price'] = float(row['price'])
                 products.append(row)
-            return products
         return products
     except (FileNotFoundError, KeyError, ValueError):
         return []
