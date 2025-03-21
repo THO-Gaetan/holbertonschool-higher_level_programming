@@ -15,7 +15,7 @@ def generate_invitations(template, attendees):
     for index, attendee in enumerate(attendees, 1):
         processed_template = template
         for key, value in attendee.items():
-            placeholder = ["name", "event_title", "event_date", "event_location"]
+            placeholder = f"{{{key}}}"
             processed_template = processed_template.replace(placeholder, value if value else "N/A")
         output_file = f"output_{index}.txt"
         with open(output_file, 'w') as file:
