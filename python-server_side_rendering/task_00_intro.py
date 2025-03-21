@@ -9,7 +9,7 @@ def generate_invitations(template, attendees):
         print("Error: Attendees is not a list")
         return
 
-    if not template.strip():
+    if not template:
         print("Error: The template can't be empty")
         return
 
