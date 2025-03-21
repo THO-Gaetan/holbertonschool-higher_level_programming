@@ -30,30 +30,27 @@ def items():
 @app.route('/products')
 def display_products():
     source = request.args.get('source') 
-    product_id = request.args.get('id', None)
-
-    products = []
-    message_error = None
+    product_id = request.args.get('id')
     
     if source == 'json':
         products = load_json_data()
     elif source == 'csv':
         products = load_csv_data()
     else:
-        message_error = "source not found"
+        return render_template('product_display.html', error="Source not found")
     
-    if product_id and not message_error:
+    if product_id:
         try:
             product_id = int(product_id)
-            products_change = [p for p in products if p['id'] == product_id]
-            if products_change: 
-                products = products_change
-            else:
-                message_error = "Product not found"
+            products_filtered = [p for p in products if p['id'] == product_id]
+            if products_filtered:
+                products = products_filtered
+            else: 
+                return render_template('product_display.html', error="Product not found.")
         except ValueError:
-            message_error = "Invalid id format"
+            return render_template('product_display.html', error="Invalid ID format. Must be numeric.")
     
-    return render_template('product_display.html', products=products, error=message_error)
+    return render_template('product_display.html', products=products)
 
 
 def load_json_data():
@@ -70,12 +67,10 @@ def load_csv_data():
         with open('products.csv', 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                products.append({
-                    'id': int(row['id']),
-                    'name': row['name'],
-                    'category': row['category'],
-                    'price': float(row['price'])
-                })
+                row['id'] = int(row['id'])
+                row['price'] = float(row['price'])
+                products.append(row)
+            return products
         return products
     except (FileNotFoundError, KeyError, ValueError):
         return []
