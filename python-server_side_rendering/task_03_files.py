@@ -45,11 +45,13 @@ def display_products():
     if product_id and not message_error:
         try:
             product_id = int(product_id)
-            products = [p for p in products if p['id'] == product_id]
-            if not products: 
-                return render_template('product_display.html', error="Product not found.")
+            products_change = [p for p in products if p['id'] == product_id]
+            if products_change: 
+                products = products_change
+            else:
+                message_error = "Product not found"
         except ValueError:
-            return render_template('product_display.html', error="Invalid ID format. Must be numeric.")
+            message_error = "Invalid id format"
     
     return render_template('product_display.html', products=products)
 
