@@ -19,7 +19,8 @@ def contact():
 def items():
     try:
         with open('items.json', 'r') as file:
-            items_data = json.load(file)
+            item_data = json.load(file)
+        items_data = item_data.get('items', [])
     except:
         items_data = []
     
