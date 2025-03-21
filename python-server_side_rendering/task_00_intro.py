@@ -4,7 +4,7 @@ def generate_invitations(template, attendees):
     if not isinstance(template, str):
         return ("Error: The template is not a string")
 
-    if not isinstance(attendees, list):
+    if not isinstance(attendees, list) or not all(isinstance(attendee, dict) for attendee in attendees):
         return ("Error: Attendees is not a list")
 
     if not template.strip():
