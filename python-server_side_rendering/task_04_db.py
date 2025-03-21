@@ -8,32 +8,44 @@ app = Flask(__name__)
 
 def create_database():
     """Create and populate the SQLite database if it doesn't exist"""
-    conn = sqlite3.connect('products.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS Products (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            category TEXT NOT NULL,
-            price REAL NOT NULL
-        )
-    ''')
-    
-    # Check if data already exists
-    cursor.execute('SELECT COUNT(*) FROM Products')
-    count = cursor.fetchone()[0]
-    
-    if count == 0:
-        # Insert sample data
+    conn = None
+    try:
+        conn = sqlite3.connect('products.db')
+        cursor = conn.cursor()
+        
+        # Create table if it doesn't exist
         cursor.execute('''
-            INSERT INTO Products (id, name, category, price)
-            VALUES
-            (1, 'Laptop', 'Electronics', 799.99),
-            (2, 'Coffee Mug', 'Home Goods', 15.99)
+            CREATE TABLE IF NOT EXISTS Products (
+                id INTEGER PRIMARY KEY,
+                name TEXT NOT NULL,
+                category TEXT NOT NULL,
+                price REAL NOT NULL
+            )
         ''')
-    
-    conn.commit()
-    conn.close()
+        
+        # Check if data exists
+        cursor.execute('SELECT COUNT(*) FROM Products')
+        count = cursor.fetchone()[0]
+        
+        # Only insert if table is empty
+        if count == 0:
+            cursor.executemany('''
+                INSERT INTO Products (id, name, category, price)
+                VALUES (?, ?, ?, ?)
+            ''', [
+                (1, 'Laptop', 'Electronics', 799.99),
+                (2, 'Coffee Mug', 'Home Goods', 15.99)
+            ])
+            
+        conn.commit()
+        
+    except sqlite3.Error as e:
+        app.logger.error(f"Database initialization error: {str(e)}")
+        if conn:
+            conn.rollback()
+    finally:
+        if conn:
+            conn.close()
 
 def load_json_data():
     try:
