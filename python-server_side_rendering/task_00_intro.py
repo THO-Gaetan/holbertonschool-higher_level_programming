@@ -1,4 +1,5 @@
 def generate_invitations(template, attendees):
+    """Create personalized files from a template and a list"""
 
     if not isinstance(template, str):
         return ("Error: The template is not a string")
