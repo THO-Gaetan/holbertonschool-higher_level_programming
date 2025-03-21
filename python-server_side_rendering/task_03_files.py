@@ -56,7 +56,7 @@ def load_json_data():
     try:
         with open('products.json', 'r') as file:
             data = json.load(file)
-        return data.get('products', [])
+            return data
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
