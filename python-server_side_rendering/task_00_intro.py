@@ -6,7 +6,7 @@ def generate_invitations(template, attendees):
         return
 
     if not isinstance(attendees, list) or not all(isinstance(attendee, dict) for attendee in attendees):
-        print("Error: Attendees is not a list")
+        print("Error: Invalid attendees data format")
         return
 
     if not template:
