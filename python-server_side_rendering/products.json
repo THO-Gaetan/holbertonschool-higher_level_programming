@@ -1,0 +1,8 @@
+[
+    {"id": 1, "name": "Laptop", "category": "Electronics", "price": 799.99},
+    {"id": 2, "name": "Coffee Mug", "category": "Home Goods", "price": 15.99},
+    {"id": 3, "name": "Computer", "category": "Electronics", "price": 1799.99},
+    {"id": 4, "name": "Cola", "category": "Drinks", "price": 1.99},
+    {"id": 5, "name": "Screen", "category": "Electronics", "price": 199.99},
+    {"id": 6, "name": "Bed", "category": "Home Goods", "price": 699.99}
+]
