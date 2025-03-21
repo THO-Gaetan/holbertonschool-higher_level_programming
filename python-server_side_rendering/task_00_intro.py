@@ -1,20 +1,16 @@
 def generate_invitations(template, attendees):
 
     if not isinstance(template, str):
-        print("Error: The template is not a string")
-        return
+        return ("Error: The template is not a string")
 
     if not isinstance(attendees, list):
-        print("Error: Attendees is not a list")
-        return
+        return ("Error: Attendees is not a list")
 
     if not template.strip():
-        print("Error: The template can't be empty")
-        return
+        return ("Error: The template can't be empty")
 
     if not attendees:
-        print("Error: The attendees list can't be empty")
-        return
+        return ("Error: The attendees list can't be empty")
 
     for index, attendee in enumerate(attendees, 1):
         processed_template = template
